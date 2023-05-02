@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aerem Express</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      setTimeout(() => {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          disableForReducedMotion: true
+        });
+      }, 500);
+    </script>
+    <style>
+      @import url("https://p.typekit.net/p.css?s=1&k=vnd5zic&ht=tk&f=39475.39476.39477.39478.39479.39480.39481.39482&a=18673890&app=typekit&e=css");
+      @font-face {
+        font-family: "neo-sans";
+        src: url("https://use.typekit.net/af/00ac0a/00000000000000003b9b2033/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"), url("https://use.typekit.net/af/00ac0a/00000000000000003b9b2033/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"), url("https://use.typekit.net/af/00ac0a/00000000000000003b9b2033/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+        font-style: normal;
+        font-weight: 700;
+      }
+      body {
+        background: linear-gradient(to right, #8e9eab, #eef2f3);
+      }
+      section {
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+      }
+      #loading {
+        display: none;
+      }
+      h1{
+        font-family: neo-sans;
+        font-weight: 700;
+        font-size: calc(62rem / 16);
+      }
+      .columns {
+            display: flex;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+        }
+        .column {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+        }
+        .column h2 {
+            margin: 0;
+            margin-top: 50px;
+        }
+        .buttons {
+            margin-top: 50px;
+            display: block;
+            justify-content: center;
+        }
+        .button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 12px 26px;
+            width: 280px;
+            height: 40px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 4px 2px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+    </style>
+  </head>
+  <body>
+    <section>
+        <h1>¡Hola guapo!</h1>
+    </section>    
+    <div class="columns">
+        <div class="column">
+            <h2>PH:</h2>
+            <span id="phValue"></span>
+            <br>
+            <h2>Color:</h2>
+            <span id="colorValue"></span>
+        </div>
+        <div class="column">
+            <h2>Cambiar luz</h2>
+            <div class="buttons">
+                <button id="button1" class="button">Apagado</button>
+                <br>
+                <button id="button2" class="button">Blanca</button>
+                <br>
+                <button id="button3" class="button">Roja</button>
+                <br>
+                <button id="button4" class="button">Azul</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const interval = setInterval(() => {
+            axios.get('all', {
+            responseType: 'json'
+            })
+            .then(function(res) {
+              console.log(res);
+              var phValue = document.getElementById('phValue');
+              var colorValue = document.getElementById('colorValue');
+
+              phValue.innerHTML = res.data.ph;
+              colorValue.innerHTML = res.data.light;
+            })
+            .catch(function(err) {
+                console.log("Error: ", err);
+                clearInterval(interval);
+            })
+        }, 5000);
+           
+    
+        var button1 = document.getElementById('button1');
+        button1.addEventListener('click', function() {
+            axios.post('/light', {"light":"off"})
+            .then(function(res) {
+                console.log(res);
+            })
+            .catch(function(err) {
+                console.log(err);
+            })
+        });
+        
+        var button2 = document.getElementById('button2');
+        button2.addEventListener('click', function() {
+          axios.post('/light', {"light":"white"})
+            .then(function(res) {
+                console.log(res);
+            })
+            .catch(function(err) {
+              console.log(err);
+            })
+        });
+        
+        var button3 = document.getElementById('button3');
+        button3.addEventListener('click', function() {
+          axios.post('/light', {"light":"red"})
+            .then(function(res) {
+                console.log(res);
+            })
+            .catch(function(err) {
+              console.log(err);
+            })
+        });
+        
+        var button4 = document.getElementById('button4');
+        button4.addEventListener('click', function() {
+          axios.post('/light', {"light":"blue"})
+            .then(function(res) {
+                console.log(res);
+            })
+            .catch(function(err) {
+              console.log(err);
+            })
+        });
+          </script>
+  </body>
+</html>
