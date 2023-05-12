@@ -45,6 +45,11 @@ app.get('/all', (req, res) => {
   res.send({light:lightState, ph:phValue})
 })
 
+app.get('/ph', (req, res) => {
+  phValue = phValue = req.body.ph;
+  res.send(lightState)
+})
+
 app.post('/ph', (req, res) => {
   phValue = req.body.ph;
   res.send(lightState)
