@@ -8,6 +8,7 @@ let lightState = 'off';
 let phValue = '';
 
 app.use(cors());
+app.options('*', cors());
 app.use(express.static('public'));
 app.use(express.json());
 
