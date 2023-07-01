@@ -47,7 +47,19 @@ app.get('/all', (req, res) => {
 
 app.get('/ph', (req, res) => {
   phValue = req.query.ph;
-  res.send(lightState)
+  let lightValue = 0;
+  switch (lightState) {
+    case white:
+      lightValue = 1;
+    case red:
+      lightValue = 2;
+    case blue:
+      lightValue = 3;
+      break;  
+    default:
+      break;
+  }
+  res.send(lightValue)
 })
 
 app.post('/ph', (req, res) => {
