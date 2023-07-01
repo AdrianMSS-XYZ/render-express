@@ -59,6 +59,7 @@ app.get('/ph', (req, res) => {
     default:
       break;
   }
+  console.log(lightValue);
   res.send(lightValue)
 })
 
@@ -68,6 +69,7 @@ app.post('/ph', (req, res) => {
 })
 
 app.post('/light', (req, res) => {
+  console.log(req.body);
   lightState = req.body.light;
   res.send(true)
 })
