@@ -47,14 +47,14 @@ app.get('/all', (req, res) => {
 
 app.get('/ph', (req, res) => {
   phValue = req.query.ph;
-  let lightValue = 0;
+  let lightValue = "o";
   switch (lightState) {
     case white:
-      lightValue = 1;
+      lightValue = "w";
     case red:
-      lightValue = 2;
+      lightValue = "r";
     case blue:
-      lightValue = 3;
+      lightValue = "b";
       break;  
     default:
       break;
