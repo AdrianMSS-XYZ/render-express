@@ -48,6 +48,8 @@ app.get('/all', (req, res) => {
 app.get('/ph', (req, res) => {
   phValue = req.query.ph;
   let lightValue = "o";
+  console.log("Pre state: ", lightState);
+  console.log("First letter: ", lightState.charAt(0));
   switch (lightState) {
     case "white":
       lightValue = "w";
@@ -59,7 +61,7 @@ app.get('/ph', (req, res) => {
     default:
       break;
   }
-  console.log(lightValue);
+  console.log("After state: ", lightState);
   res.send(lightValue)
 })
 
