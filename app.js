@@ -47,7 +47,7 @@ app.get('/all', (req, res) => {
 
 app.get('/ph', (req, res) => {
   phValue = req.query.ph;
-  res.send(lightState)
+  res.send("EsteEsElColor:"+lightState+":BienAlambradoElMensaje")
 })
 
 app.post('/ph', (req, res) => {
