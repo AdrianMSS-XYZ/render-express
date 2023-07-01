@@ -47,22 +47,7 @@ app.get('/all', (req, res) => {
 
 app.get('/ph', (req, res) => {
   phValue = req.query.ph;
-  let lightValue = "o";
-  console.log("Pre state: ", lightState);
-  console.log("First letter: ", lightState.charAt(0));
-  switch (lightState) {
-    case "white":
-      lightValue = "w";
-    case "red":
-      lightValue = "r";
-    case "blue":
-      lightValue = "b";
-      break;  
-    default:
-      break;
-  }
-  console.log("After state: ", lightState);
-  res.send(lightValue)
+  res.send(lightState.charAt(0))
 })
 
 app.post('/ph', (req, res) => {
