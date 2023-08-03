@@ -1,19 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Aerem Express</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <title>Aerem</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-      setTimeout(() => {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 },
-          disableForReducedMotion: true
-        });
-      }, 500);
-    </script>
     <style>
       @import url("https://p.typekit.net/p.css?s=1&k=vnd5zic&ht=tk&f=39475.39476.39477.39478.39479.39480.39481.39482&a=18673890&app=typekit&e=css");
       @font-face {
@@ -76,19 +65,29 @@
             margin-bottom: 10px;
             cursor: pointer;
         }
+        #colorCircle{
+          width: 50px;
+          height: 50px;
+          border-radius: 100%;
+          background-color: black;
+          margin: auto;
+          margin-top: 12px;
+        }
     </style>
   </head>
   <body>
     <section>
-        <h1>¡Hola guapo!</h1>
+        <h1>Prueba del Bioreactor</h1>
     </section>    
     <div class="columns">
         <div class="column">
-            <h2>PH:</h2>
+            <h2>Estado actual</h2>
+            <h3>PH:</h3>
             <span id="phValue">...</span>
             <br>
-            <h2>Color:</h2>
+            <h3>Color:</h3>
             <span id="colorValue">...</span>
+            <div id="colorCircle"></div>
         </div>
         <div class="column">
             <h2>Cambiar luz</h2>
@@ -109,10 +108,11 @@
             responseType: 'json'
             })
             .then(function(res) {
-              console.log(res);
               var phValue = document.getElementById('phValue');
               var colorValue = document.getElementById('colorValue');
-
+              if(res.data.light === 'off')
+                document.getElementById('colorCircle').style.backgroundColor = 'black';
+              else  document.getElementById('colorCircle').style.backgroundColor = res.data.light;
               phValue.innerHTML = res.data.ph;
               colorValue.innerHTML = res.data.light;
             })
@@ -120,7 +120,7 @@
                 console.log("Error: ", err);
                 clearInterval(interval);
             })
-        }, 5000);
+        }, 1000);
            
     
         var button1 = document.getElementById('button1');
